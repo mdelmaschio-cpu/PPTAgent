@@ -1,16 +1,4 @@
 services:
-  build-sandbox:
-    build:
-      context: ./deeppresenter/docker
-      dockerfile: SandBox.Dockerfile
-      args:
-        http_proxy: ${http_proxy:-}
-        https_proxy: ${https_proxy:-}
-        no_proxy: ${no_proxy:-}
-    image: deeppresenter-sandbox:0.1.0
-    profiles:
-      - build-only
-
   deeppresenter-host:
     build:
       context: ./deeppresenter/docker

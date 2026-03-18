@@ -120,13 +120,13 @@ uvx pptagent generate "Q4 Report" \
   -o report.pptx
 ```
 
-| Command | Description |
-|---------|-------------|
-| `pptagent onboard` | Interactive configuration wizard |
-| `pptagent generate` | Generate presentations |
-| `pptagent config` | View current configuration |
-| `pptagent reset` | Reset configuration |
-| `pptagent serve` | Start the local inference service used by the CLI |
+| Command             | Description                                       |
+| ------------------- | ------------------------------------------------- |
+| `pptagent onboard`  | Interactive configuration wizard                  |
+| `pptagent generate` | Generate presentations                            |
+| `pptagent config`   | View current configuration                        |
+| `pptagent reset`    | Reset configuration                               |
+| `pptagent serve`    | Start the local inference service used by the CLI |
 
 ### 2. Minimal Setup / Development: Build From Source
 
@@ -137,8 +137,12 @@ uv pip install -e .
 playwright install-deps
 playwright install chromium
 npm install --prefix deeppresenter/html2pptx
+
 docker pull crpi-0dz9m86qyvrdt6ju.cn-beijing.personal.cr.aliyuncs.com/pptagent/deeppresenter-sandbox:v0.1.0
 docker tag crpi-0dz9m86qyvrdt6ju.cn-beijing.personal.cr.aliyuncs.com/pptagent/deeppresenter-sandbox:v0.1.0 deeppresenter-sandbox:0.1.0
+
+# or build from dockerfile
+docker build -t deeppresenter-sandbox:0.1.0 -f deeppresenter/docker/SandBox.Dockerfile deeppresenter/docker
 ```
 
 Start the app:
@@ -147,18 +151,21 @@ Start the app:
 python webui.py
 ```
 
-### 3. Server Deployment: Docker Compose (Linux Only)
+### 3. Server Deployment: Docker Compose
 
 Use this mode for a stable server environment with explicit dependencies.
 
 ```bash
-# Pull the public images
+# Pull the public images to avoid build from source
 docker pull crpi-0dz9m86qyvrdt6ju.cn-beijing.personal.cr.aliyuncs.com/pptagent/deeppresenter-host:v0.1.0
 docker pull crpi-0dz9m86qyvrdt6ju.cn-beijing.personal.cr.aliyuncs.com/pptagent/deeppresenter-sandbox:v0.1.0
 
 # Tag them to the local names expected by docker-compose.yml
 docker tag crpi-0dz9m86qyvrdt6ju.cn-beijing.personal.cr.aliyuncs.com/pptagent/deeppresenter-host:v0.1.0 deeppresenter-host:0.1.0
 docker tag crpi-0dz9m86qyvrdt6ju.cn-beijing.personal.cr.aliyuncs.com/pptagent/deeppresenter-sandbox:v0.1.0 deeppresenter-sandbox:0.1.0
+
+# Or build from source
+docker build -t deeppresenter-sandbox:0.1.0 -f deeppresenter/docker/SandBox.Dockerfile deeppresenter/docker
 
 # Start the host service
 docker compose up -d deeppresenter-host
