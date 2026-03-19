@@ -192,6 +192,29 @@ def ensure_node() -> bool:
         return False
 
 
+def ensure_poppler() -> bool:
+    """Ensure poppler is installed on macOS."""
+    if shutil.which("pdfinfo") is not None:
+        console.print("[green]✓[/green] poppler already installed")
+        return True
+
+    console.print("[yellow]poppler not found, installing via Homebrew...[/yellow]")
+    if not ensure_homebrew():
+        return False
+
+    try:
+        return run_streaming_command(
+            ["brew", "install", "poppler"],
+            success_message="[green]✓[/green] poppler installed",
+            failure_message="[bold red]✗[/bold red] Failed to install poppler",
+        )
+    except FileNotFoundError:
+        console.print(
+            "[bold red]✗[/bold red] brew command not found after installation"
+        )
+        return False
+
+
 def is_local_model_server_running() -> bool:
     """Check whether local OpenAI-compatible server responds on /v1/models."""
     try:
@@ -495,6 +518,10 @@ def onboard():
 
     # Check npm dependencies
     check_npm_dependencies()
+
+    # Check poppler
+    if platform.system().lower() == "darwin":
+        ensure_poppler()
 
     # Check if config files exist in current directory
     local_config = Path.cwd() / "deeppresenter" / "config.yaml"

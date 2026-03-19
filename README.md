@@ -96,9 +96,9 @@ More configurable variables can be found in [constants.py](deeppresenter/utils/c
 ### 1. Personal Use / OpenClaw Integration: CLI
 
 > [!NOTE]
-> On macOS, the CLI may automatically install several local dependencies, including Homebrew, Node.js, Docker, Playwright, and llama.cpp.
+> On macOS, the CLI may automatically install several local dependencies, including Homebrew, Node.js, Docker, poppler, Playwright, and llama.cpp.
 >
-> On Linux, you should prepare the environment as described [here](#2-minimal-setup--development-build-from-source).
+> On Linux, you should prepare the environment by yourself.
 
 Use this mode if you want the fastest local setup or want to plug DeepPresenter into OpenClaw through the CLI.
 
