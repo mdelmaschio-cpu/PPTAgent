@@ -204,7 +204,17 @@ class Background(Fill):
         Returns:
             str: The HTML representation of the background.
         """
-        raise NotImplementedError("Background to HTML conversion is not implemented")
+        if self.fill_type == MSO_FILL_TYPE.BACKGROUND:
+            return ""
+        base_style = "position:absolute; left:0; top:0; width:100%; height:100%; z-index:-1;"
+        if self.fill_type == MSO_FILL_TYPE.PICTURE and self.image_path:
+            if not style_args.show_image:
+                return ""
+            return f"<img src='{self.image_path}' style='{base_style} object-fit:cover;'/>"
+        if self.fill_str:
+            color = self.fill_str.split(": ", 1)[1]
+            return f"<div style='{base_style} background-color:{color};'></div>"
+        return ""
 
     @property
     def closures(self) -> list:

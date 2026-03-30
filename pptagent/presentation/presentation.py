@@ -203,7 +203,8 @@ class SlidePage:
         """
         if style_args is None:
             style_args = StyleArg(**kwargs)
-        shapes_html = [shape.to_html(style_args) for shape in self.shapes]
+        backgrounds_html = [bg.to_html(style_args) for bg in self.backgrounds]
+        shapes_html = backgrounds_html + [shape.to_html(style_args) for shape in self.shapes]
         shapes_html = [html for html in shapes_html if html]
         return "".join(
             [
